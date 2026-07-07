@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import Navbar      from './components/layout/Navbar';
-import Login       from './pages/Login';
-import Register    from './pages/Register';
-import Dashboard   from './pages/Dashboard';
-import Canchas     from './pages/Canchas';
-import Reservas    from './pages/Reservas';
-import AdminPanel  from './pages/AdminPanel';
+import Navbar         from './components/layout/Navbar';
+import WhatsAppButton from './components/layout/WhatsAppButton';
+import Login          from './pages/Login';
+import Register       from './pages/Register';
+import Dashboard      from './pages/Dashboard';
+import Canchas        from './pages/Canchas';
+import Reservas       from './pages/Reservas';
+import AdminPanel     from './pages/AdminPanel';
 
 function RutaProtegida({ children }) {
   const { token } = useAuth();
@@ -27,18 +28,14 @@ function AppRoutes() {
         <Routes>
           <Route path="/login"    element={token ? <Navigate to="/" /> : <Login />} />
           <Route path="/register" element={token ? <Navigate to="/" /> : <Register />} />
-          <Route path="/" element={
-            <RutaProtegida><Dashboard /></RutaProtegida>
-          }/>
-          <Route path="/canchas" element={<Canchas />} />
-          <Route path="/reservas" element={
-            <RutaProtegida><Reservas /></RutaProtegida>
-          }/>
-          <Route path="/admin" element={
-            <RutaProtegida><RutaAdmin><AdminPanel /></RutaAdmin></RutaProtegida>
-          }/>
+          <Route path="/" element={<RutaProtegida><Dashboard /></RutaProtegida>} />
+          <Route path="/canchas"  element={<Canchas />} />
+          <Route path="/reservas" element={<RutaProtegida><Reservas /></RutaProtegida>} />
+          <Route path="/admin"    element={<RutaProtegida><RutaAdmin><AdminPanel /></RutaAdmin></RutaProtegida>} />
         </Routes>
       </main>
+      {/* Botón flotante de WhatsApp — visible en todas las páginas */}
+      <WhatsAppButton />
     </>
   );
 }

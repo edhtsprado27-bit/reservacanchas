@@ -1,4 +1,5 @@
 const reservaService = require('../services/reservaService');
+const reservaRepo    = require('../repositories/reservaRepository');
 
 const crear = async (req, res, next) => {
   try {
@@ -6,7 +7,7 @@ const crear = async (req, res, next) => {
     const result = await reservaService.crear({
       usuarioId: req.usuario.id, canchaId, horarioId, fecha, horaInicio, horaFin
     });
-    res.status(201).json({ success: true, message: 'Reserva confirmada exitosamente.', data: result });
+    res.status(201).json({ success: true, message: 'Reserva confirmada.', data: result });
   } catch (err) { next(err); }
 };
 
@@ -16,6 +17,13 @@ const cancelar = async (req, res, next) => {
       req.params.id, req.usuario.id, req.usuario.rol, req.body.motivo
     );
     res.json({ success: true, ...result });
+  } catch (err) { next(err); }
+};
+
+const actualizar = async (req, res, next) => {
+  try {
+    await reservaRepo.actualizar(req.params.id, req.body);
+    res.json({ success: true, message: 'Reserva actualizada.' });
   } catch (err) { next(err); }
 };
 
@@ -43,4 +51,11 @@ const reporte = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-module.exports = { crear, cancelar, historial, todas, reporte };
+const reporteIngresos = async (req, res, next) => {
+  try {
+    const data = await reservaRepo.reporteIngresos();
+    res.json({ success: true, data });
+  } catch (err) { next(err); }
+};
+
+module.exports = { crear, cancelar, actualizar, historial, todas, reporte, reporteIngresos };

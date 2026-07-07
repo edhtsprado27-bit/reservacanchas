@@ -7,8 +7,8 @@ const registrar = async ({ nombre, apellido, correo, contrasena }) => {
   if (!nombre || !apellido || !correo || !contrasena)
     throw new AppError('Todos los campos son obligatorios.', 400);
 
-  if (contrasena.length < 8 || !/[a-zA-Z]/.test(contrasena) || !/[0-9]/.test(contrasena))
-    throw new AppError('La contraseña debe tener mínimo 8 caracteres, una letra y un número.', 400);
+  if (contrasena.length < 6)
+    throw new AppError('La contraseña debe tener mínimo 6 caracteres.', 400);
 
   const existente = await usuarioRepo.findByCorreo(correo);
   if (existente) throw new AppError('El correo ya se encuentra registrado.', 409);

@@ -1,33 +1,13 @@
-const sql = require('mssql');
+const { Pool } = require('pg');
 require('dotenv').config();
 
-const config = {
-  server: process.env.DB_SERVER || 'localhost',
-  database: process.env.DB_DATABASE || 'reservacanchas',
-  options: {
-    encrypt: false,
-    trustServerCertificate: true,
-    enableArithAbort: true,
-  },
-};
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
 
-// Si usa Windows Authentication
-if (process.env.DB_TRUSTED_CONNECTION === 'true') {
-  config.options.trustedConnection = true;
-  config.driver = 'msnodesqlv8';
-} else {
-  config.user = process.env.DB_USER;
-  config.password = process.env.DB_PASSWORD;
-}
+pool.connect()
+  .then(() => console.log('✅ Conectado a PostgreSQL'))
+  .catch(err => console.error('❌ Error BD:', err.message));
 
-let pool = null;
-
-async function getPool() {
-  if (!pool) {
-    pool = await sql.connect(config);
-    console.log('✅ Conectado a SQL Server');
-  }
-  return pool;
-}
-
-module.exports = { getPool, sql };
+module.exports = { pool };

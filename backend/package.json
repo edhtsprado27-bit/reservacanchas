@@ -1,7 +1,6 @@
 {
   "name": "reservacanchas-backend",
   "version": "1.0.0",
-  "description": "Sistema Web para Reservar Canchas Deportivas - Backend API REST",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -14,7 +13,7 @@
     "express": "^4.18.3",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
-    "mssql": "^11.0.1"
+    "pg": "^8.11.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

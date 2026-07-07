@@ -4,5 +4,39 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f3f4f6;
+  min-height: 100vh;
+  background: 
+    linear-gradient(rgba(0,0,50,0.6), rgba(0,50,0,0.5)),
+    url('https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=1600&q=80') 
+    center/cover fixed;
 }
+
+/* Navbar opaco */
+nav {
+  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 100, 0.95) !important;
+}
+
+/* Cards con fondo semitransparente */
+.bg-white {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.bg-gray-50 {
+  background: rgba(249, 250, 251, 0.95) !important;
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+main > div {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e40af; border-radius: 3px; }
