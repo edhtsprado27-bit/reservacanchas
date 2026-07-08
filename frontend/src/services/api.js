@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: 'http://192.168.1.11:3001/api' });
+const api = axios.create({ baseURL: 'https://reservacanchas-api.onrender.com/api' });
 
 // Agregar token automáticamente
 api.interceptors.request.use((config) => {
